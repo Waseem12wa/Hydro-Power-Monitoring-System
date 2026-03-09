@@ -1,0 +1,43 @@
+{
+  "name": "hydro-power-monitoring-system",
+  "version": "1.0.0",
+  "description": "AI-powered online monitoring and performance analysis tool for micro hydro power plants with real-time data tracking and predictive analytics",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "hydropower",
+    "monitoring",
+    "AI",
+    "performance-analysis",
+    "groq",
+    "renewable-energy",
+    "real-time",
+    "predictive-analytics"
+  ],
+  "author": "Waseem",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Waseem12wa/Hydro-Power-Monitoring-System.git"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.7",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.0",
+    "express-session": "^1.17.3",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

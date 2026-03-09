@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hydro Power Monitoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+    <!-- Header -->
+    <header class="login-header-top">
+        <div class="header-content">
+            <div class="logo-text">
+                <svg width="35" height="35" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#0066cc" opacity="0.1"/>
+                    <path d="M50 20 L50 50 L70 35 Z" fill="#0066cc"/>
+                    <path d="M50 50 L70 65 L50 80 Z" fill="#00aa66"/>
+                    <path d="M50 50 L30 65 L50 80 Z" fill="#0066cc"/>
+                    <path d="M50 50 L30 35 L50 20 Z" fill="#00aa66"/>
+                    <circle cx="50" cy="50" r="8" fill="#ffffff"/>
+                </svg>
+                <span>Hydro Power Monitoring System</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="logo">
+                    <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#0066cc" opacity="0.1"/>
+                        <path d="M50 20 L50 50 L70 35 Z" fill="#0066cc"/>
+                        <path d="M50 50 L70 65 L50 80 Z" fill="#00aa66"/>
+                        <path d="M50 50 L30 65 L50 80 Z" fill="#0066cc"/>
+                        <path d="M50 50 L30 35 L50 20 Z" fill="#00aa66"/>
+                        <circle cx="50" cy="50" r="8" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <h1>Hydro Power Monitoring System</h1>
+                <p>Online Monitoring and Performance Analysis Tool</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="error-message" id="errorMessage" style="display: none;"></div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <span class="btn-text">Login</span>
+                    <span class="btn-loader" style="display: none;">⟳</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Default credentials: admin / admin123</p>
+                <p class="ai-badge">🤖 AI-Powered with Groq</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="login-footer-bottom">
+        <p>© 2026 Hydro Power Monitoring System | AI-Powered by Groq</p>
+        <p>Real-time Monitoring • Performance Analysis • Predictive Maintenance</p>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const btnText = document.querySelector('.btn-text');
+            const btnLoader = document.querySelector('.btn-loader');
+            
+            // Show loading state
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
+            errorMessage.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = '/dashboard.html';
+                } else {
+                    errorMessage.textContent = data.error || 'Login failed';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.style.display = 'block';
+            } finally {
+                btnText.style.display = 'inline-block';
+                btnLoader.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hydro Power Monitoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="logo-small">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#ffffff" opacity="0.1"/>
+                    <path d="M50 20 L50 50 L70 35 Z" fill="#ffffff"/>
+                    <path d="M50 50 L70 65 L50 80 Z" fill="#00ff88"/>
+                    <path d="M50 50 L30 65 L50 80 Z" fill="#ffffff"/>
+                    <path d="M50 50 L30 35 L50 20 Z" fill="#00ff88"/>
+                    <circle cx="50" cy="50" r="8" fill="#0066cc"/>
+                </svg>
+            </div>
+            <h1>Hydro Power Monitoring System</h1>
+        </div>
+        <div class="header-right">
+            <span class="username" id="username">Admin</span>
+            <button class="btn-logout" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <a href="#overview" class="nav-link active" data-page="overview">📊 Overview</a>
+        <a href="#history" class="nav-link" data-page="history">📈 History & Graphs</a>
+        <a href="#ai-insights" class="nav-link" data-page="ai">🤖 AI Insights</a>
+        <a href="#alerts" class="nav-link" data-page="alerts">⚠️ Alerts</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Overview Page -->
+        <div id="overview-page" class="page-content active">
+            <!-- Alert Banner -->
+            <div id="alertBanner" class="alert-banner" style="display: none;"></div>
+
+            <!-- Status Summary -->
+            <div class="status-summary">
+                <div class="status-card">
+                    <h3>Plant Status</h3>
+                    <div class="status-value" id="plantStatus">OPERATIONAL</div>
+                </div>
+                <div class="status-card">
+                    <h3>Efficiency</h3>
+                    <div class="status-value" id="efficiencyStatus">--</div>
+                </div>
+                <div class="status-card">
+                    <h3>Power Output</h3>
+                    <div class="status-value" id="powerStatus">-- kW</div>
+                </div>
+                <div class="status-card">
+                    <h3>Active Alerts</h3>
+                    <div class="status-value alert-count" id="alertCount">0</div>
+                </div>
+            </div>
+
+            <!-- Real-time Parameters -->
+            <div class="section">
+                <h2>⚡ Electrical Parameters</h2>
+                <div class="parameters-grid">
+                    <div class="parameter-card">
+                        <div class="param-label">Voltage</div>
+                        <div class="param-value" id="voltage">-- V</div>
+                        <div class="param-status" id="voltage-status">Normal</div>
+                        <div class="param-range">Standard: 210-230 V</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Current</div>
+                        <div class="param-value" id="current">-- A</div>
+                        <div class="param-status" id="current-status">Normal</div>
+                        <div class="param-range">Standard: 10-100 A</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Power Output</div>
+                        <div class="param-value" id="power">-- kW</div>
+                        <div class="param-status" id="power-status">Normal</div>
+                        <div class="param-range">Max: 15 kW</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Frequency</div>
+                        <div class="param-value" id="frequency">-- Hz</div>
+                        <div class="param-status" id="frequency-status">Normal</div>
+                        <div class="param-range">Standard: 50 Hz</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Load</div>
+                        <div class="param-value" id="load">-- %</div>
+                        <div class="param-status" id="load-status">Normal</div>
+                        <div class="param-range">Max: 100%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌊 Mechanical & Hydraulic Parameters</h2>
+                <div class="parameters-grid">
+                    <div class="parameter-card">
+                        <div class="param-label">Turbine Speed</div>
+                        <div class="param-value" id="rpm">-- RPM</div>
+                        <div class="param-status" id="rpm-status">Normal</div>
+                        <div class="param-range">Standard: 500-1800 RPM</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Water Flow Rate</div>
+                        <div class="param-value" id="flowRate">-- m³/s</div>
+                        <div class="param-status" id="flowRate-status">Normal</div>
+                        <div class="param-range">Standard: 0.5-10 m³/s</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Water Head</div>
+                        <div class="param-value" id="waterHead">-- m</div>
+                        <div class="param-status" id="waterHead-status">Normal</div>
+                        <div class="param-range">Operating Range</div>
+                    </div>
+                    <div class="parameter-card">
+                        <div class="param-label">Generator Temperature</div>
+                        <div class="param-value" id="temp">-- °C</div>
+                        <div class="param-status" id="temp-status">Normal</div>
+                        <div class="param-range">Max: 80°C</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Efficiency Panel -->
+            <div class="section">
+                <h2>📊 Performance Analysis</h2>
+                <div class="efficiency-panel">
+                    <div class="efficiency-gauge">
+                        <canvas id="efficiencyGauge"></canvas>
+                    </div>
+                    <div class="efficiency-details">
+                        <h3>Current Efficiency</h3>
+                        <div class="efficiency-value" id="efficiencyValue">-- %</div>
+                        <div class="efficiency-info">
+                            <p><strong>Electrical Power Output:</strong> <span id="electricalPower">--</span> kW</p>
+                            <p><strong>Hydraulic Power Input:</strong> <span id="hydraulicPower">--</span> kW</p>
+                            <p><strong>Target Efficiency:</strong> ≥ 75%</p>
+                        </div>
+                        <button class="btn-ai" onclick="analyzeEfficiency(this)">🤖 AI Analysis</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Page -->
+        <div id="history-page" class="page-content">
+            <div class="section">
+                <h2>📈 Historical Data & Trends</h2>
+                <div class="chart-controls">
+                    <label>Time Range:</label>
+                    <select id="timeRange" onchange="loadHistoricalData()">
+                        <option value="1">Last 1 Hour</option>
+                        <option value="6">Last 6 Hours</option>
+                        <option value="24" selected>Last 24 Hours</option>
+                        <option value="168">Last 7 Days</option>
+                    </select>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="voltageChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="powerChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="rpmChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights Page -->
+        <div id="ai-page" class="page-content">
+            <div class="section">
+                <h2>🤖 AI-Powered Insights & Predictions</h2>
+                <div class="ai-models-info">
+                    <div class="ai-model-card">
+                        <h4>llama-3.3-70b-versatile</h4>
+                        <p>Complex performance analysis</p>
+                    </div>
+                    <div class="ai-model-card">
+                        <h4>llama-3.1-8b-instant</h4>
+                        <p>Real-time anomaly detection</p>
+                    </div>
+                    <div class="ai-model-card">
+                        <h4>gemma2-9b-it</h4>
+                        <p>Quick efficiency analysis</p>
+                    </div>
+                </div>
+
+                <div class="ai-actions">
+                    <button class="btn-ai-large" onclick="getPerformancePrediction(this)">
+                        📊 Performance Prediction
+                    </button>
+                    <button class="btn-ai-large" onclick="detectAnomalies(this)">
+                        🔍 Detect Anomalies
+                    </button>
+                    <button class="btn-ai-large" onclick="getComprehensiveAnalysis(this)">
+                        📋 Comprehensive Analysis
+                    </button>
+                </div>
+
+                <div id="aiResultsContainer" class="ai-results"></div>
+            </div>
+        </div>
+
+        <!-- Alerts Page -->
+        <div id="alerts-page" class="page-content">
+            <div class="section">
+                <h2>⚠️ System Alerts & Notifications</h2>
+                <div id="alertsContainer" class="alerts-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p><strong>© 2026 Hydro Power Monitoring System</strong></p>
+                <p>Real-time Monitoring • Performance Analysis • Predictive Maintenance</p>
+            </div>
+            <div class="footer-center">
+                <p>🤖 AI-Powered by Groq</p>
+                <p class="ai-models-small">3 Models: llama-3.3-70b • llama-3.1-8b • gemma2-9b</p>
+            </div>
+            <div class="footer-right">
+                <p><strong>Last Update:</strong> <span id="lastUpdate">--</span></p>
+                <p><strong>Status:</strong> <span class="status-indicator">●</span> Online</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
