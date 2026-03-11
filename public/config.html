@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Configuration - Hydro Power Monitoring</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/config.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2f4a 100%);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-water"></i>
+                <span>Hydro Power System</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="config.html" class="active"><i class="fas fa-cog"></i> Configuration</a>
+                <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Welcome Guide (shown for first-time users) -->
+        <div class="card" id="welcomeGuide" style="background: linear-gradient(135deg, #00aa66 0%, #00ff88 100%); color: #0a1628; margin-top: 2rem;">
+            <div class="card-header" style="border-bottom-color: rgba(10, 22, 40, 0.2);">
+                <h2 style="color: #0a1628;"><i class="fas fa-lightbulb"></i> Getting Started</h2>
+                <button class="btn" style="background: #0a1628; color: white; padding: 0.5rem 1rem;" onclick="document.getElementById('welcomeGuide').style.display='none'">
+                    <i class="fas fa-times"></i> Hide
+                </button>
+            </div>
+            <div class="card-body">
+                <h3 style="margin-bottom: 1rem; color: #0a1628;">🚀 Quick Start Guide</h3>
+                <ol style="line-height: 2; color: #0a1628;">
+                    <li><strong>No configurations yet?</strong> Scroll down to see <span style="background: rgba(10, 22, 40, 0.2); padding: 0.2rem 0.5rem; border-radius: 4px;">"Quick Create Moolia Plant"</span> button</li>
+                    <li><strong>Click it</strong> and the system will automatically create and start your plant simulation</li>
+                    <li><strong>OR</strong> scroll to the Configuration Editor at the bottom to create a custom configuration</li>
+                    <li><strong>Add your own sensor fields</strong> by clicking "➕ Add Field" - it's completely flexible!</li>
+                    <li><strong>Once saved</strong>, select it from the dropdown above and click "▶️ Start Simulation"</li>
+                    <li><strong>View live data</strong> on the Dashboard → Overview tab</li>
+                </ol>
+                <div style="margin-top: 1rem; padding: 1rem; background: rgba(10, 22, 40, 0.1); border-radius: 6px;">
+                    <strong>💡 Pro Tip:</strong> The "Moolia Plant" template includes all your specifications: 410V, 166A, 0.83 PF, 3-phase, 775 RPM, and more!
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Control Panel -->
+        <div class="card simulation-card">
+            <div class="card-header">
+                <h2><i class="fas fa-play-circle"></i> Simulation Control</h2>
+                <div class="status-badge" id="simStatusBadge">
+                    <span class="status-dot stopped"></span>
+                    <span id="simStatusText">Stopped</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="sim-controls">
+                    <div class="control-group">
+                        <label for="activeConfig">Active Configuration:</label>
+                        <select id="activeConfig" class="form-select">
+                            <option value="">⚠️ No configurations - Create one below first!</option>
+                        </select>
+                        <small style="display: block; margin-top: 0.5rem; opacity: 0.8;">
+                            💡 Create a configuration in the "Configuration Editor" section below, then come back here to start it.
+                        </small>
+                    </div>
+                    
+                    <div class="control-row">
+                        <div class="control-group">
+                            <label for="simInterval">Update Interval (seconds):</label>
+                            <input type="number" id="simInterval" min="1" max="60" value="3" class="form-input">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label for="simVariation">Variation (%):</label>
+                            <input type="number" id="simVariation" min="0" max="20" step="0.5" value="5" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="startSimBtn" class="btn btn-success" onclick="startSimulation()">
+                            <i class="fas fa-play"></i> Start Simulation
+                        </button>
+                        <button id="stopSimBtn" class="btn btn-danger" onclick="stopSimulation()" disabled>
+                            <i class="fas fa-stop"></i> Stop Simulation
+                        </button>
+                        <button class="btn btn-secondary" onclick="updateSettings()">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Management -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-list"></i> Saved Configurations</h2>
+                <button class="btn btn-primary" onclick="showNewConfigModal()">
+                    <i class="fas fa-plus"></i> New Configuration
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="configList" class="config-list">
+                    <div class="loading">Loading configurations...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Editor -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-edit"></i> Configuration Editor</h2>
+            </div>
+            <div class="card-body">
+                <div class="editor-section">
+                    <div class="control-group">
+                        <label for="configName">Configuration Name:</label>
+                        <input type="text" id="configName" placeholder="e.g., Moolia Plant Configuration" class="form-input">
+                    </div>
+                    
+                    <div class="fields-section">
+                        <div class="section-header">
+                            <h3>Data Fields</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="addField()">
+                                <i class="fas fa-plus"></i> Add Field
+                            </button>
+                        </div>
+                        
+                        <div id="fieldsContainer" class="fields-container">
+                            <!-- Predefined common fields will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="templates-section">
+                        <label>Quick Templates:</label>
+                        <div class="template-buttons">
+                            <button class="btn btn-outline" onclick="loadTemplate('basic')">
+                                <i class="fas fa-bolt"></i> Basic Electrical
+                            </button>
+                            <button class="btn btn-outline" onclick="loadTemplate('hydro')">
+                                <i class="fas fa-water"></i> Hydro Power (Full)
+                            </button>
+                            <button class="btn btn-outline" onclick="loadTemplate('moolia')">
+                                <i class="fas fa-industry"></i> Moolia Plant
+                            </button>
+                            <button class="btn btn-outline" onclick="clearFields()">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="saveConfiguration()">
+                            <i class="fas fa-save"></i> Save Configuration
+                        </button>
+                        <button class="btn btn-success" onclick="saveAndStart()">
+                            <i class="fas fa-play"></i> Save & Start
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetEditor()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/config.js"></script>
+</body>
+</html>

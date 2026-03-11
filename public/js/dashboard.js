@@ -36,6 +36,13 @@ function setupNavigation() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
+            // Only prevent default for internal navigation (links with data-page)
+            const page = link.dataset.page;
+            if (!page) {
+                // Allow normal navigation for external links (like config.html)
+                return;
+            }
+            
             e.preventDefault();
             
             // Update active link
@@ -43,7 +50,6 @@ function setupNavigation() {
             link.classList.add('active');
             
             // Show corresponding page
-            const page = link.dataset.page;
             document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
             document.getElementById(`${page}-page`).classList.add('active');
             

@@ -42,6 +42,38 @@ const initialize = () => {
         resolved BOOLEAN DEFAULT 0
       )`);
 
+      // Plant configuration table (user-defined parameters)
+      db.run(`CREATE TABLE IF NOT EXISTS plant_config (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        config_name TEXT NOT NULL,
+        is_active BOOLEAN DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`);
+
+      // Custom fields for plant configuration
+      db.run(`CREATE TABLE IF NOT EXISTS config_fields (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        config_id INTEGER,
+        field_name TEXT NOT NULL,
+        field_value TEXT NOT NULL,
+        field_type TEXT NOT NULL,
+        FOREIGN KEY (config_id) REFERENCES plant_config(id)
+      )`);
+
+      // Simulation settings
+      db.run(`CREATE TABLE IF NOT EXISTS simulation_settings (
+        id INTEGER PRIMARY KEY,
+        is_running BOOLEAN DEFAULT 0,
+        interval_seconds INTEGER DEFAULT 3,
+        variation_percentage REAL DEFAULT 5.0,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`, (err) => {
+        if (!err) {
+          db.run(`INSERT OR IGNORE INTO simulation_settings (id, is_running, interval_seconds) VALUES (1, 0, 3)`);
+        }
+      });
+
       // Standard parameters table
       db.run(`CREATE TABLE IF NOT EXISTS standard_parameters (
         id INTEGER PRIMARY KEY,

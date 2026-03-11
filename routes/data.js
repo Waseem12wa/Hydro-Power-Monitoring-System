@@ -13,23 +13,8 @@ const requireAuth = (req, res, next) => {
 
 // Get current plant data (simulated real-time)
 router.get('/current', requireAuth, (req, res) => {
-  // Generate realistic simulated data
-  const data = generatePlantData();
-  
-  // Save to database
-  db.run(`INSERT INTO plant_data 
-    (voltage, current, power_output, frequency, load_percentage, 
-     turbine_rpm, water_flow_rate, water_head, generator_temp, efficiency) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [data.voltage, data.current, data.powerOutput, data.frequency, 
-     data.load, data.turbineRPM, data.waterFlowRate, data.waterHead, 
-     data.generatorTemp, data.efficiency]
-  );
-
-  // Check for alerts
-  checkAndGenerateAlerts(data);
-
-  res.json(data);
+  // Redirect to realtime endpoint
+  res.redirect(307, '/api/realtime/current');
 });
 
 // Get historical data

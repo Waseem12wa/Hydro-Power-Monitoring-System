@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Guide - Hydro Power Monitoring System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a1628 0%, #1a2f4a 100%);
+            color: white;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        .guide-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(22, 42, 71, 0.95);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .guide-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(77, 171, 247, 0.3);
+        }
+        .guide-header h1 {
+            color: #4dabf7;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .guide-section {
+            background: rgba(77, 171, 247, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #4dabf7;
+        }
+        .guide-section h2 {
+            color: #4dabf7;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .step-number {
+            background: #4dabf7;
+            color: #0a1628;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .btn-back {
+            background: #4dabf7;
+            color: #0a1628;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-back:hover {
+            background: #00aa66;
+            transform: translateY(-2px);
+        }
+        .highlight {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .quick-tip {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <div class="guide-header">
+            <h1>🌊 Quick Start Guide</h1>
+            <p style="color: #a0aec0;">Learn how to use your Hydro Power Monitoring System</p>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">1</span> Dashboard Overview</h2>
+            <p>The dashboard has 4 main tabs:</p>
+            <ul class="feature-list">
+                <li><strong>📊 Overview</strong> - Real-time gauges and current readings</li>
+                <li><strong>📈 History & Graphs</strong> - Historical data charts and trends</li>
+                <li><strong>🤖 AI Insights</strong> - AI-powered predictions and analysis</li>
+                <li><strong>⚠️ Alerts</strong> - System warnings and notifications</li>
+            </ul>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">2</span> Configuration Page</h2>
+            <p>Click <span class="highlight">⚙️ Configuration</span> to set up your plant:</p>
+            <ol style="line-height: 2;">
+                <li>Click <span class="highlight">🚀 Quick Create Moolia Plant</span> for instant setup</li>
+                <li>OR use templates: Basic Electrical, Hydro Power Full, Moolia Plant</li>
+                <li>OR add custom fields: Click "➕ Add Field" and enter sensor names</li>
+                <li>Click <span class="highlight">Save & Start</span> to begin simulation</li>
+            </ol>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">3</span> Simulation Control</h2>
+            <p>From the Configuration page:</p>
+            <ul class="feature-list">
+                <li><strong>Update Interval:</strong> 1-60 seconds (how fast data updates)</li>
+                <li><strong>Variation:</strong> 0-20% (random fluctuation to simulate sensors)</li>
+                <li><strong>Start/Stop:</strong> Control data generation with one click</li>
+                <li><strong>Status Badge:</strong> Shows green (running) or red (stopped)</li>
+            </ul>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">4</span> Adding Custom Sensors</h2>
+            <p>You can add ANY sensor type:</p>
+            <ol style="line-height: 2;">
+                <li>Go to Configuration → Configuration Editor</li>
+                <li>Click <span class="highlight">➕ Add Field</span></li>
+                <li>Enter <strong>Field Name</strong> (voltage, pressure, temperature, vibration, etc.)</li>
+                <li>Enter <strong>Value</strong> (base value for simulation)</li>
+                <li>Select <strong>Type</strong> (Number or Text)</li>
+                <li>Repeat for all sensors you need</li>
+                <li>Click <span class="highlight">Save & Start</span></li>
+            </ol>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">5</span> Understanding AI Insights</h2>
+            <p>The AI tab provides three types of analysis:</p>
+            <ul class="feature-list">
+                <li><strong>Efficiency Analysis:</strong> Overall plant performance review</li>
+                <li><strong>Anomaly Detection:</strong> Real-time deviation alerts</li>
+                <li><strong>Performance Predictions:</strong> 24-hour forecasts</li>
+            </ul>
+            <div class="quick-tip">
+                <strong>💡 Tip:</strong> AI models analyze your data in real-time and provide optimization recommendations!
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">6</span> Monitored Parameters</h2>
+            <p><strong>Standard Parameters:</strong></p>
+            <ul class="feature-list">
+                <li>Voltage (V)</li>
+                <li>Current (A)</li>
+                <li>Power Output (kW)</li>
+                <li>Frequency (Hz)</li>
+                <li>Turbine RPM</li>
+                <li>Water Flow Rate (m³/s)</li>
+                <li>Water Head (meters/feet)</li>
+                <li>Generator Temperature (°C)</li>
+                <li>Efficiency (%)</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Plus any custom sensors you add!</strong></p>
+        </div>
+
+        <div class="guide-section">
+            <h2><span class="step-number">7</span> Managing Configurations</h2>
+            <p>Create multiple configurations for different scenarios:</p>
+            <ul class="feature-list">
+                <li><strong>Edit:</strong> Click blue pencil icon</li>
+                <li><strong>Delete:</strong> Click red trash icon</li>
+                <li><strong>Activate:</strong> Click green check icon</li>
+                <li><strong>Switch:</strong> Select from dropdown and restart</li>
+            </ul>
+        </div>
+
+        <div class="quick-tip" style="background: linear-gradient(135deg, #00aa66 0%, #00ff88 100%); text-align: center;">
+            <h3 style="color: #0a1628; margin-bottom: 0.5rem;">🚀 Quick Start Path</h3>
+            <p style="color: #0a1628; line-height: 1.8;">
+                1. Go to Configuration<br>
+                2. Click "Quick Create Moolia Plant"<br>
+                3. Wait 5 seconds<br>
+                4. Go to Dashboard → See live data!
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="dashboard.html" class="btn-back">
+                ← Back to Dashboard
+            </a>
+            <a href="config.html" class="btn-back" style="background: #00aa66; margin-left: 1rem;">
+                ⚙️ Go to Configuration
+            </a>
+        </div>
+    </div>
+</body>
+</html>

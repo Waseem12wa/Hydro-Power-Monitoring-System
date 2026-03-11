@@ -9,6 +9,8 @@ const db = require('./database');
 const authRoutes = require('./routes/auth');
 const dataRoutes = require('./routes/data');
 const aiRoutes = require('./routes/ai');
+const realtimeRoutes = require('./routes/realtime');
+const configRoutes = require('./routes/config');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/realtime', realtimeRoutes);
+app.use('/api/config', configRoutes);
 
 // Root route
 app.get('/', (req, res) => {

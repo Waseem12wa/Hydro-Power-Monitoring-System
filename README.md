@@ -1,20 +1,67 @@
 # 🌊 Hydro Power Monitoring System
 
-A comprehensive **AI-powered monitoring and performance analysis tool** for micro hydro power plants with real-time data tracking, predictive analytics, and intelligent fault detection.
+A comprehensive **AI-powered monitoring and performance analysis tool** for micro hydro power plants with **web-based configuration**, real-time data tracking, predictive analytics, and intelligent fault detection.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)
 ![AI](https://img.shields.io/badge/AI-Groq%20API-orange.svg)
 
-## 🚀 Features
+## 🚀 Key Features
 
-- ⚡ **Real-time Monitoring** - Track electrical and mechanical parameters every 3 seconds
+- ⚙️ **Web-Based Configuration** - Configure plant parameters from your browser (no coding required!)
+- ⚡ **Real-time Monitoring** - Track electrical and mechanical parameters with live updates
 - 🤖 **AI-Powered Analytics** - Advanced predictive insights using Groq AI (3 specialized models)
 - 📊 **Historical Data Visualization** - Interactive graphs with Chart.js for trend analysis
 - 🚨 **Intelligent Alert System** - Automatic fault detection with severity-based notifications
-- 📈 **Performance Optimization** - Live efficiency calculations and improvement recommendations
+- 🎮 **Simulation Control** - Start/stop data simulation with one click from the web interface
 - 🔐 **Secure Authentication** - Session-based login with bcrypt password hashing
 - 💾 **Persistent Storage** - Complete SQLite database for data history and analytics
+
+---
+
+## ⚡ NEW: Web-Based Configuration System
+
+**The easiest way to configure your hydro power plant monitoring!**
+
+### 🎯 What You Can Do
+- ✅ **Visual Configuration Editor** - Add/edit sensor parameters from your browser
+- ✅ **One-Click Simulation** - Start/stop data generation instantly
+- ✅ **Multiple Configurations** - Save different setups for different plants or operating modes
+- ✅ **Quick Templates** - Pre-configured templates (Basic Electrical, Hydro Power Full, Moolia Plant)
+- ✅ **Custom Fields** - Add ANY sensor type (voltage, temperature, pressure, vibration, custom metrics)
+- ✅ **Real-time Control** - Adjust update intervals (1-60 seconds) and variation percentages (0-20%)
+
+### 🚀 Quick Start
+
+1. **Start the server**
+   ```bash
+   npm start
+   ```
+   Or double-click `START.bat` on Windows
+
+2. **Login** at `http://localhost:3000`
+   - Username: `admin`
+   - Password: `admin123`
+
+3. **Go to Configuration Page**
+   - Click "⚙️ Configuration" in the navigation bar
+
+4. **Create Your First Configuration**
+   - Click "🚀 Quick Create Moolia Plant" button
+   - OR load a template (Basic/Hydro/Moolia)
+   - OR add custom fields manually
+
+5. **Start Simulation**
+   - Click "Save & Start" button
+   - Watch live data on the Dashboard!
+
+### 📝 Pre-Built Templates
+
+| Template | Parameters | Use Case |
+|----------|------------|----------|
+| **Basic Electrical** | Voltage, Current, Frequency, Power Factor | Simple electrical monitoring |
+| **Hydro Power (Full)** | Voltage, Current, PF, RPM, Flow Rate, Water Head, Temperature | Complete hydro plant monitoring |
+| **Moolia Plant** | 410V, 166A, 0.83 PF, 3-phase, 775 RPM, 0.51 m³/s, 110 ft head | Pre-configured for Moolia Plant specs |
 
 ---
 
@@ -72,7 +119,7 @@ This system leverages **Groq API** with three specialized large language models:
 - npm (v6.0.0 or higher)
 - Groq API key ([Get one free here](https://console.groq.com))
 
-### Quick Start
+### Installation Steps
 
 1. **Clone the repository**
    ```bash
@@ -100,19 +147,11 @@ This system leverages **Groq API** with three specialized large language models:
    ```
 
 5. **Access the application**
-   
-   Open your browser and navigate to: `http://localhost:3000`
-
----
-
-## 🔐 Default Login Credentials
-
-```
-Username: admin
-Password: admin123
-```
-
-> ⚠️ **Security Note**: Change the default password immediately in production environments.
+   - Open browser: `http://localhost:3000`
+   - Login: `admin` / `admin123`
+   - Click "⚙️ Configuration" to set up your plant
+   - Click "🚀 Quick Create Moolia Plant" for instant setup
+   - View live data on Dashboard!
 
 ---
 
@@ -170,17 +209,24 @@ Hydro-Power-Monitoring-System/
 ├── database.js            # SQLite database setup & queries
 ├── package.json           # Dependencies & scripts
 ├── .env                   # Environment variables (not in repo)
+├── .env.example          # Example environment configuration
+├── START.bat             # Quick start script for Windows
+├── README.md             # Complete documentation
 ├── routes/
 │   ├── auth.js           # Authentication endpoints
 │   ├── data.js           # Real-time data & historical queries
-│   └── ai.js             # Groq AI integration endpoints
+│   ├── ai.js             # Groq AI integration endpoints
+│   └── config.js         # Configuration & simulation management API
 └── public/
     ├── login.html        # Login page
     ├── dashboard.html    # Main dashboard interface
+    ├── config.html       # Configuration & simulation control page
     ├── css/
-    │   └── style.css     # Professional hydropower theme
+    │   ├── style.css     # Professional hydropower theme
+    │   └── config.css    # Configuration page styles
     └── js/
-        └── dashboard.js  # Frontend logic & AI display
+        ├── dashboard.js  # Dashboard logic & AI display
+        └── config.js     # Configuration page logic & simulation control
 ```
 
 ---
@@ -194,6 +240,20 @@ The application features a **professional hydropower-themed design**:
 - 📱 **Real-time Updates**: Live parameter cards with color-coded status
 - 🎯 **User Experience**: Intuitive navigation with smooth animations
 - 🔔 **Alert System**: Prominent banners for critical notifications
+- ⚙️ **Web-Based Config**: Visual editor for easy plant setup
+
+---
+
+## 🌐 Deployment on Render
+
+1. Push your code to GitHub
+2. Create a new **Web Service** on [Render](https://render.com)
+3. Connect your GitHub repository
+4. Configure the service:
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+   - **Environment Variables**: `GROQ_API_KEY`, `SESSION_SECRET`, `PORT`
+5. Deploy!
 
 ---
 
